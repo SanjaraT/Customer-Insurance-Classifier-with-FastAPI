@@ -159,3 +159,5 @@ plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.title("Confusion Matrix")
 plt.show()
+
+joblib.dump(model, "insurance_model.pkl")
