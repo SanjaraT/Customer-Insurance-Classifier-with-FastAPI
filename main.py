@@ -117,47 +117,49 @@ y = target_encoder.fit_transform(y)
 num_features = ["income_lpa", "bmi", "city_tier"]
 cat_features = ["occupation", "age_group", "lifestyle_risk"]
 
-#Preprocessing
-preprocessor = ColumnTransformer(
-    transformers=[
-        ("num", StandardScaler(), num_features),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), cat_features)
-    ]
-)
+print(df['occupation'].unique())
 
-#Train/Test
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42,
-    stratify=y
-)
+# #Preprocessing
+# preprocessor = ColumnTransformer(
+#     transformers=[
+#         ("num", StandardScaler(), num_features),
+#         ("cat", OneHotEncoder(handle_unknown="ignore"), cat_features)
+#     ]
+# )
 
-# Model
-model = Pipeline([
-    ("preprocessor", preprocessor),
-    ("classifier", RandomForestClassifier(random_state=42))
-])
+# #Train/Test
+# X_train, X_test, y_train, y_test = train_test_split(
+#     X,
+#     y,
+#     test_size=0.2,
+#     random_state=42,
+#     stratify=y
+# )
 
-model.fit(X_train, y_train)
+# # Model
+# model = Pipeline([
+#     ("preprocessor", preprocessor),
+#     ("classifier", RandomForestClassifier(random_state=42))
+# ])
 
-#evaluation
-y_pred = model.predict(X_test)
+# model.fit(X_train, y_train)
 
-print("Classification Report:\n")
-print(classification_report(y_test, y_pred, target_names=target_encoder.classes_))
+# #evaluation
+# y_pred = model.predict(X_test)
 
-# Confusion Matrix
-cm = confusion_matrix(y_test, y_pred)
+# print("Classification Report:\n")
+# print(classification_report(y_test, y_pred, target_names=target_encoder.classes_))
 
-plt.figure(figsize=(6,4))
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
-            xticklabels=target_encoder.classes_,
-            yticklabels=target_encoder.classes_)
-plt.xlabel("Predicted")
-plt.ylabel("Actual")
-plt.title("Confusion Matrix")
-plt.show()
+# # Confusion Matrix
+# cm = confusion_matrix(y_test, y_pred)
 
-joblib.dump(model, "insurance_model.pkl")
+# plt.figure(figsize=(6,4))
+# sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+#             xticklabels=target_encoder.classes_,
+#             yticklabels=target_encoder.classes_)
+# plt.xlabel("Predicted")
+# plt.ylabel("Actual")
+# plt.title("Confusion Matrix")
+# plt.show()
+
+# joblib.dump(model, "insurance_model.pkl")
